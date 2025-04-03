@@ -1,0 +1,11 @@
+<%- include("header.ejs")%>
+<h1 class = "font title">Welcome to the JokeAPI Interface</h1>
+<div class="optionsContainer">
+    <form action="/getJoke" method="get">
+        <input type="submit" value="Get Joke">
+    </form>
+    <form action="/postJoke" method="get">
+        <input type="submit" value="Post Joke">
+    </form>
+</div>
+<%- include("footer.ejs")%>
