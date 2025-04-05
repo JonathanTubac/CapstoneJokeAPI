@@ -25,31 +25,56 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/getJoke", (req, res) => {
-  res.render("GetJokes.ejs");
+  res.render("GetJokes.ejs", { joke: null, setup: null, delivery: null });
 });
 
 app.get("/postJoke", (req, res) => {
   res.render("PostJokes.ejs");
 });
 
-app.post("/customJoke", (req, res) => {
-    try{
-        if(req.body.radio == "Custom"){
-            const programming = req.body.Programming;
-            const misc = req.body.Misc;
-            const dark = req.body.Dark;
-            
-        }
-        const config = {
-            params: {
-                category: 
-            }
-        }
-        const path = "/joke"
+app.post("/customJoke", async (req, res) => {
+  try {
+    const category = [req.body.category];
+    var randomCategory = category[Math.floor(Math.random() * category.length)];
+    const path = "/joke/" + randomCategory;
+    const config = {
+      params: {
+        lang: req.body.languaje,
+        blackListFlags: [req.body.flank],
+        type: req.body.jokeType,
+      },
+    };
+    const response = await axios.get(API_URL + path, config);
+    const result = response.data;
 
-    }catch(error){
-
-    }
+    res.render("GetJokes.ejs", {
+      category: JSON.stringify(result.category),
+      type: JSON.stringify(result.type),
+      joke: JSON.stringify(result.joke),
+      setup: JSON.stringify(result.setup),
+      delivery: JSON.stringify(result.delivery),
+      nsfw: JSON.stringify(result.flags.nsfw),
+      religious: JSON.stringify(result.flags.religious),
+      political: JSON.stringify(result.flags.political),
+      racist: JSON.stringify(result.flags.racist),
+      sexist: JSON.stringify(result.flags.sexist),
+      explicit: JSON.stringify(result.flags.explicit),
+    });
+  } catch (error) {
+    res.render("GetJokes.ejs", {
+      joke: error.message,
+      category: null,
+      type: null,
+      setup: null,
+      delivery: null,
+      nsfw: null,
+      religious: null,
+      political: null,
+      racist: null,
+      sexist: null,
+      explicit: null,
+    });
+  }
 });
 app.listen(port, () => {
   console.log("Server running on port: " + port);

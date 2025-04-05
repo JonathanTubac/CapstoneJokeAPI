@@ -1,56 +1,160 @@
 <%- include("header.ejs")%>
-    <h2 class="font title">Get the jokes that you want!</h2>
-    <div class="formContainer">
-        <form action="/customJoke" method="post">
-            <div class="inputsContainer">
-                <input class="text" type="text" placeholder="" />
-                <input class="text" type="text" />
-                <input class="text" type="text" />
-            </div>
-            <div class="checkBoxContainer">
-                <h2>Choose the categories you want</h2>
-                <input type="radio" name="radio" id="Any" value="Any" />Any
-                <div>
-                    <input type="radio" name="radio" id="Custom" value="Custom"/>Custom
-                    <input class="checkbox" name="Programming" type="checkbox" value="Programming" disabled />Programming
-                    <input class="checkbox" name="Misc" type="checkbox" value="Misc" disabled />Misc
-                    <input class="checkbox" name="Dark" type="checkbox" value="Dark" disabled />Dark
-                    <input class="checkbox" name="Pun" type="checkbox" value="Pun" disabled />Pun
-                    <input class="checkbox" name="Spooky" type="checkbox" value="Spooky" disabled />Spooky
-                    <input class="checkbox" name="Christmas" type="checkbox" value="Christmas" disabled />Christmas
-                </div>
-            </div>
-            <div class="languajeContainer">
-                <select name="" id="">
-                    <option value="en">English</option>
-                    <option value="es">Spanish</option>
-                </select>
-            </div>
-            <input class="actionButton get" type="submit" value="Get custom joke" />
-        </form>
+<h2 class="font title">Get the jokes that you want!</h2>
+<div class="formContainer">
+  <form action="/customJoke" class="customJokeForm" method="post">
+    <div class="checkBoxContainer">
+      <div class="checkboxContent">
+        <h2>Choose the categories you want</h2>
+        <label
+          ><input type="radio" name="radio" id="Any" value="Any" />Any</label
+        >
+        <div>
+          <label
+            ><input
+              type="radio"
+              name="radio"
+              id="Custom"
+              value="Custom"
+            />Custom</label
+          >
+          <input
+            class="checkbox"
+            name="category"
+            type="checkbox"
+            value="Programming"
+            disabled
+          />Programming
+          <input
+            class="checkbox"
+            name="category"
+            type="checkbox"
+            value="Misc"
+            disabled
+          />Misc
+          <input
+            class="checkbox"
+            name="category"
+            type="checkbox"
+            value="Dark"
+            disabled
+          />Dark
+          <input
+            class="checkbox"
+            name="category"
+            type="checkbox"
+            value="Pun"
+            disabled
+          />Pun
+          <input
+            class="checkbox"
+            name="category"
+            type="checkbox"
+            value="Spooky"
+            disabled
+          />Spooky
+          <input
+            class="checkbox"
+            name="category"
+            type="checkbox"
+            value="Christmas"
+            disabled
+          />Christmas
+        </div>
+        <div class="flanks">
+          <h2>Choose the flags you don't want</h2>
+          <input type="checkbox" name="flank" value="nsfw" />NSFW
+          <input type="checkbox" name="flank" value="religious" />Religious
+          <input type="checkbox" name="flank" value="political" />Political
+          <input type="checkbox" name="flank" value="racist" />Racist
+          <input type="checkbox" name="flank" value="sexist" />Sexist
+          <input type="checkbox" name="flank" value="explicit" />Explicit
+        </div>
+      </div>
     </div>
-    <div class="jokeContainer">
-      
+    <div class="languajeContainer">
+      <div class="languajeContent">
+        <h2>Choose the languaje you want to get the joke</h2>
+        <h3>
+          Languaje<select name="languaje" id="languaje">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="cs">Czech</option>
+            <option value="pt">Portuguese</option>
+          </select>
+        </h3>
+        <h3>
+          Type<select name="jokeType" id="">
+            <option value="single">Single</option>
+            <option value="twopart">Twopart</option>
+          </select>
+        </h3>
+      </div>
     </div>
-    <script>
-        document.querySelector("#Any").addEventListener("change", function () {
-            if (this.checked) {
-                var checkbox = document.querySelectorAll(".checkbox");
+    <div class="getJokeBtn">
+      <input class="actionButton get" type="submit" value="Get custom joke" />
+    </div>
+  </form>
+ 
+  <div class="jokeContainer">
+    <%if(joke != null){%>
+    <h2 class="customJokeTitle">This is your custom joke!</h2>
 
-                for (var i = 0; i < checkbox.length; i++) {
-                    checkbox[i].disabled = true;
-                    checkbox[i].checked = false;
-                }
-            }
-        });
+    <h3>Category: <%=category%></h3>
+    <h3>Type of Joke: <%=type%></h3>
+    <h3>Joke: <%=joke%></h3>
+    <div class="flags">
+      <h3>NSFW: <%=nsfw%></h3>
+      <h3>Religious: <%=religious%></h3>
+      <h3>Political: <%=political%></h3>
+      <h3>Racist: <%=racist%></h3>
+      <h3>Sexist: <%=sexist%></h3>
+      <h3>Explicit: <%=explicit%></h3>
+    </div>
+    <%}else{%> <%if(setup != null && delivery != null){%>
+    <h2>This is your custom joke!</h2>
+    <h3>Category: <%=category%></h3>
+    <h3>Type of Joke: <%=type%></h3>
+    <h3>Setup: <%=setup%></h3>
+    <h3>Delivery: <%=delivery%></h3>
+    <div class="flags">
+      <h3>NSFW: <%=nsfw%></h3>
+      <h3>Religious: <%=religious%></h3>
+      <h3>Political: <%=political%></h3>
+      <h3>Racist: <%=racist%></h3>
+      <h3>Sexist: <%=sexist%></h3>
+      <h3>Explicit: <%=explicit%></h3>
+    </div>
+    <%} else {%>
+    <h3>Your joke will appear here!</h3>
+    <%}%> <%}%>
+  </div>
+</div>
+<form action="/" method="get" id="return">
+    <input class="actionButton get" type="submit" value="Return to menu" />
+  </form>
+<script>
+  document.querySelector("#Any").addEventListener("change", function () {
+    if (this.checked == true) {
+      var checkbox = document.querySelectorAll(".checkbox");
+      document.querySelector("#Any").name = "category";
+      for (var i = 0; i < checkbox.length; i++) {
+        checkbox[i].disabled = true;
+        checkbox[i].checked = false;
+      }
+    }
+  });
 
-        document.querySelector("#Custom").addEventListener("change", function () {
-            var checkbox = document.querySelectorAll(".checkbox");
-            if (this.checked == true) {
-                for (var i = 0; i < checkbox.length; i++) {
-                    checkbox[i].disabled = false;
-                }
-            }
-        });
-    </script>
-    <%- include("footer.ejs")%>
+  document.querySelector("#Custom").addEventListener("change", function () {
+    var checkbox = document.querySelectorAll(".checkbox");
+    document.querySelector("#Any").name = "radio";
+
+    if (this.checked == true) {
+      for (var i = 0; i < checkbox.length; i++) {
+        checkbox[i].disabled = false;
+      }
+    }
+  });
+</script>
+<%- include("footer.ejs")%>
