@@ -1,4 +1,56 @@
 <%- include("header.ejs")%>
-<h2 class = "font title">Get the jokes that you want!</h2>
+    <h2 class="font title">Get the jokes that you want!</h2>
+    <div class="formContainer">
+        <form action="/customJoke" method="post">
+            <div class="inputsContainer">
+                <input class="text" type="text" placeholder="" />
+                <input class="text" type="text" />
+                <input class="text" type="text" />
+            </div>
+            <div class="checkBoxContainer">
+                <h2>Choose the categories you want</h2>
+                <input type="radio" name="radio" id="Any" value="Any" />Any
+                <div>
+                    <input type="radio" name="radio" id="Custom" value="Custom"/>Custom
+                    <input class="checkbox" name="Programming" type="checkbox" value="Programming" disabled />Programming
+                    <input class="checkbox" name="Misc" type="checkbox" value="Misc" disabled />Misc
+                    <input class="checkbox" name="Dark" type="checkbox" value="Dark" disabled />Dark
+                    <input class="checkbox" name="Pun" type="checkbox" value="Pun" disabled />Pun
+                    <input class="checkbox" name="Spooky" type="checkbox" value="Spooky" disabled />Spooky
+                    <input class="checkbox" name="Christmas" type="checkbox" value="Christmas" disabled />Christmas
+                </div>
+            </div>
+            <div class="languajeContainer">
+                <select name="" id="">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                </select>
+            </div>
+            <input class="actionButton get" type="submit" value="Get custom joke" />
+        </form>
+    </div>
+    <div class="jokeContainer">
+      
+    </div>
+    <script>
+        document.querySelector("#Any").addEventListener("change", function () {
+            if (this.checked) {
+                var checkbox = document.querySelectorAll(".checkbox");
 
-<%- include("footer.ejs")%>
+                for (var i = 0; i < checkbox.length; i++) {
+                    checkbox[i].disabled = true;
+                    checkbox[i].checked = false;
+                }
+            }
+        });
+
+        document.querySelector("#Custom").addEventListener("change", function () {
+            var checkbox = document.querySelectorAll(".checkbox");
+            if (this.checked == true) {
+                for (var i = 0; i < checkbox.length; i++) {
+                    checkbox[i].disabled = false;
+                }
+            }
+        });
+    </script>
+    <%- include("footer.ejs")%>

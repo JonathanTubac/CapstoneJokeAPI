@@ -1,5 +1,65 @@
-h1 {
+.title {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.font {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+}
+
+body {
+    background-color: #c57777;
+}
+
+.optionsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 500px;
+    margin: 10px;
+}
+
+.randomJoke {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px;
+}
+.actionButton {
+    width: 250px;
+    height: 50px;
+    font-size: 20px;
+    border: 0px;
+    border-radius: 20px;
+    transition: all 0.5s;
+    margin: 15px;
+}
+
+.actionButton:hover {
+    background-color: white;
+}
+
+.post {
+    background-color: rgb(117, 239, 239);
+}
+
+.get {
+    background-color: #f0fa64;
+}
+
+/*styles for getJokes.ejs */
+
+.text{
+    background-color: white;
+    width: 250px;
+    height: 30px;
+}
+
+.jokeContainer {
+    width: 500px;
+    height: 500px;
+    background-color: white;
 }
